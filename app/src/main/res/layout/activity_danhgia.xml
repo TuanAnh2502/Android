@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D9D9D9">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="349dp"
+        android:layout_height="227dp"
+        android:layout_marginTop="15dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/chuongtrinh" />
+
+            <View
+                android:id="@+id/rectangle_6"
+                android:layout_width="349dp"
+                android:layout_height="65dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/danhgia_r6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Bắt đầu đi bộ"
+                android:textColor="#FFFEFE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintStart_toStartOf="@+id/rectangle_6"
+                app:layout_constraintTop_toTopOf="@+id/rectangle_6" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Người mới bắt đầu"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.167"
+                app:layout_constraintStart_toStartOf="@+id/rectangle_6"
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3 day/week, 11 week "
+                android:textColor="#FAFAFA"
+                app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.925"
+                app:layout_constraintStart_toStartOf="@+id/rectangle_6" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="21dp"
+                android:layout_height="19dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                app:layout_constraintEnd_toStartOf="@+id/textView16"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/rectangle_6"
+                app:srcCompat="@drawable/frame" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/rectangle_8"
+        android:layout_width="343dp"
+        android:layout_height="470dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/danhgia_r8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/Danhgia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đánh giá"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/rectangle_8"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_8"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="@id/rectangle_8"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_8"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <EditText
+        android:id="@+id/editTextDanhgia"
+        android:layout_width="303dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/inputdanhgia"
+        android:ems="10"
+        android:gravity="top|start"
+        android:inputType="textMultiLine"
+        android:hint="Nhập đánh giá"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_8"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_8"
+        app:layout_constraintTop_toBottomOf="@+id/Danhgia" />
+
+    <Button
+        android:id="@+id/buttonSend"
+        android:layout_width="74dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/danhgia_send"
+        android:text="gửi"
+        app:layout_constraintEnd_toEndOf="@+id/editTextDanhgia"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDanhgia" />
+
+    <ScrollView
+
+        android:id="@+id/danhgia_scroll"
+        android:layout_width="343dp"
+        android:layout_height="237dp"
+        android:layout_marginTop="30dp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_8"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_8"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSend">
+
+        <LinearLayout
+            android:id="@+id/xemdanhgia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/danhgia1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="16dp"
+                    app:cardBackgroundColor="#62D3EF"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/daidien"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/admin" />
+                </androidx.cardview.widget.CardView>
+
+                <EditText
+                    android:id="@+id/editTextText2"
+                    android:layout_width="259dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:text="Các chương trình luyện tập sẽ phù hợp với mỗi cá nhân ở các mức độ, nếu có sai sót mong các bạn bỏ qua"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/cardView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView19"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="admin"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="@+id/editTextText2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="Ngày:11/3/2023"
+                    android:textColor="#040404"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/editTextText2"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:background="#787676"
+        app:layout_constraintBottom_toTopOf="@+id/danhgia_scroll"
+        app:layout_constraintEnd_toEndOf="@+id/danhgia_scroll"
+        app:layout_constraintStart_toStartOf="@+id/danhgia_scroll" />
+</androidx.constraintlayout.widget.ConstraintLayout>
