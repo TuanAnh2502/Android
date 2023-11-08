@@ -125,8 +125,8 @@
         android:background="@drawable/inputdanhgia"
         android:ems="10"
         android:gravity="top|start"
-        android:inputType="textMultiLine"
         android:hint="Nhập đánh giá"
+        android:inputType="textMultiLine"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_8"
         app:layout_constraintStart_toStartOf="@+id/rectangle_8"
@@ -134,13 +134,12 @@
 
     <Button
         android:id="@+id/buttonSend"
-        android:layout_width="74dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="63dp"
+        android:layout_height="22dp"
         android:background="@drawable/danhgia_send"
         android:text="gửi"
-        app:layout_constraintEnd_toEndOf="@+id/editTextDanhgia"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDanhgia" />
+        app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+        app:layout_constraintEnd_toEndOf="@+id/editTextDanhgia" />
 
     <ScrollView
 
@@ -200,8 +199,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/cardView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView19"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar3"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
                     android:id="@+id/textView19"
@@ -221,6 +220,19 @@
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="@+id/editTextText2"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar3"
+                    style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:progressTint="#4F9E4D"
+                    android:rating="5"
+                    android:stepSize="1"
+                    app:layout_constraintStart_toStartOf="@+id/textView19"
+                    app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
@@ -234,4 +246,16 @@
         app:layout_constraintBottom_toTopOf="@+id/danhgia_scroll"
         app:layout_constraintEnd_toEndOf="@+id/danhgia_scroll"
         app:layout_constraintStart_toStartOf="@+id/danhgia_scroll" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="232dp"
+        android:layout_height="47dp"
+        android:numStars="5"
+        android:progressTint="#4F9E4D"
+        android:stepSize="1"
+        app:layout_constraintStart_toStartOf="@+id/editTextDanhgia"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDanhgia" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
