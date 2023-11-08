@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/angdg" />
+                android:src="@drawable/admin" />
         </androidx.cardview.widget.CardView>
 
         <EditText
@@ -39,21 +39,21 @@
             android:enabled="false"
             android:gravity="top|start"
             android:inputType="textMultiLine"
-            android:text="bai danh gia nay mang tinh chat minh hoa de xem no có xuong dong khong thoi"
+            android:text="Các chương trình luyện tập sẽ phù hợp với mỗi cá nhân ở các mức độ, nếu có sai sót mong các bạn bỏ qua"
             android:textColor="#000000"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/cardView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView19"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar3"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:text="Tuấn Anh"
+            android:text="admin"
             android:textColor="#000000"
             app:layout_constraintStart_toStartOf="@+id/editTextText2"
             app:layout_constraintTop_toTopOf="parent" />
@@ -67,6 +67,19 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/editTextText2"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/ratingBar3"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:progressTint="#4F9E4D"
+            android:rating="5"
+            android:stepSize="1"
+            app:layout_constraintStart_toStartOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
