@@ -7,20 +7,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
     private Button btnRegister;
     private  Button btnLogin;
     private EditText edtlgEmail,edtlgPassword;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        edtlgEmail=findViewById(R.id.editTextTextEmailAddress);
-        edtlgPassword=findViewById(R.id.editTextTextPassword);
-        btnRegister=findViewById(R.id.btnRegister);
+        mAuth=FirebaseAuth.getInstance();
+        AnhXa();
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,7 +36,7 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnLogin=findViewById(R.id.btnLogin);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,10 +60,38 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Mật khẩu phải dài ít nhất 8 ký tự", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(Login.this,MainActivity.class);
-                startActivity(intent);
+                DangNhap();
 
             }
         });
+    }
+    private void AnhXa(){
+        edtlgEmail=findViewById(R.id.editTextTextEmailAddress);
+        edtlgPassword=findViewById(R.id.editTextTextPassword);
+        btnRegister=findViewById(R.id.btnRegister);
+        btnLogin=findViewById(R.id.btnLogin);
+    }
+    private void DangNhap(){
+        String email=edtlgEmail.getText().toString();
+        String password=edtlgPassword.getText().toString();
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(Login.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
+                    Intent intent = new Intent(Login.this,MainActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Login.this, "Đăng nhập không thành công",Toast.LENGTH_SHORT).show();
+                    updateUI(null);
+                }
+            }
+        });
+    }
+    private void reload() { }
+    private void updateUI(FirebaseUser user) {
+
     }
 }
