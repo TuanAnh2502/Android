@@ -9,4 +9,9 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="bottom_nav_item1">Kế hoạch</string>
+    <string name="bottom_nav_item2">Tiến độ</string>
+    <string name="bottom_nav_item3">Bắt đầu</string>
+    <string name="bottom_nav_item4">Bước</string>
+    <string name="bottom_nav_item5">Cài đặt</string>
 </resources>

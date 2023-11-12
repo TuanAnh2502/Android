@@ -72,8 +72,8 @@ public class Login extends AppCompatActivity {
         btnLogin=findViewById(R.id.btnLogin);
     }
     private void DangNhap(){
-        String email=edtlgEmail.getText().toString();
-        String password=edtlgPassword.getText().toString();
+        String email=edtlgEmail.getText().toString().trim();
+        String password=edtlgPassword.getText().toString().trim();
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
