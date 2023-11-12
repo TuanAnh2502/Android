@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/kehoach" android:title="@string/bottom_nav_item1" android:icon="@drawable/planner_icon"/>
+    <item android:id="@+id/tiendo" android:title="@string/bottom_nav_item2" android:icon="@drawable/progress"/>
+    <item android:id="@+id/batdau" android:title="@string/bottom_nav_item3" android:icon="@drawable/start_icon"/>
+    <item android:id="@+id/buoc" android:title="@string/bottom_nav_item4" android:icon="@drawable/footprints_icon"/>
+    <item android:id="@+id/caidat" android:title="@string/bottom_nav_item5" android:icon="@drawable/setting_icon"/>
+</menu>
