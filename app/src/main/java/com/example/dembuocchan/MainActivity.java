@@ -50,4 +50,5 @@ public class MainActivity extends AppCompatActivity{
         danhgia=findViewById(R.id.button2);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
     }
+
 }

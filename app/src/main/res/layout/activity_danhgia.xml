@@ -159,7 +159,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/danhgia1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -179,7 +179,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/admin" />
+                         />
                 </androidx.cardview.widget.CardView>
 
                 <EditText
@@ -233,7 +233,7 @@
                     app:layout_constraintStart_toStartOf="@+id/textView19"
                     app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>-->
         </LinearLayout>
     </ScrollView>
 

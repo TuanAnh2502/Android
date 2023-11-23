@@ -94,4 +94,9 @@ public class Login extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
 
     }
+    public void onBackPressed() {
+        // Khi nút "Back" được nhấn, gọi finish() để đóng Activity
+        super.onBackPressed();
+        finish();
+    }
 }

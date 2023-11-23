@@ -123,6 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                 // Nếu người dùng chọn "Có", chuyển đến trang tạo hồ sơ.
                 Intent intent = new Intent(RegisterActivity.this, User.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -136,5 +137,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+        finish();
+    }
+    public void onBackPressed() {
+        // Khi nút "Back" được nhấn, gọi finish() để đóng Activity
+        super.onBackPressed();
+        finish();
     }
 }

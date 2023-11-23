@@ -1,9 +1,12 @@
 package com.example.dembuocchan;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -15,8 +18,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
+import com.squareup.picasso.Picasso;
 
 public class User extends AppCompatActivity {
     Button btnUpdate, btnUpdate2;
@@ -26,6 +33,9 @@ public class User extends AppCompatActivity {
     // Firebase
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    ImageView imageView;
+    private int checksua=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +52,7 @@ public class User extends AppCompatActivity {
                 btnUpdate.setVisibility(View.GONE);
                 btnUpdate2.setVisibility(View.VISIBLE);
                 enableAllPlainText();
+                checksua=1;
             }
         });
 
@@ -53,12 +64,85 @@ public class User extends AppCompatActivity {
                 unenableAllPlainText();
                 // Update user profile data in Firebase Realtime Database
                 updateUserData();
+                checksua=0;
             }
         });
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checksua==1){
+                    openGallery();}
+                    else {Toast.makeText(User.this, "hay an nut sua truoc", Toast.LENGTH_SHORT).show();}
+                }
+            });
 
         // Hiển thị thông tin hồ sơ người dùng khi mở ứng dụng
         displayUserData();
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+
+            // Gọi hàm xử lý ảnh (ví dụ: hiển thị ảnh trong ImageView)
+            handleImage(uri);
+        }
+    }
+
+    private void handleImage(Uri uri) {
+        // Hiển thị ảnh trong ImageView
+
+        imageView.setImageURI(uri);
+
+        // Lưu ảnh vào Firebase Storage (ví dụ)
+        uploadImageToFirebase(uri);
+    }
+
+    private void uploadImageToFirebase(Uri uri) {
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            String userId = user.getUid();
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            String imageFileName = userId+".jpg";
+            StorageReference imageRef = storageRef.child("profile_images/" + imageFileName);
+            imageRef.putFile(uri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        // Lấy đường dẫn tới ảnh sau khi tải lên thành công
+                        imageRef.getDownloadUrl().addOnSuccessListener(uried -> {
+                            String imageUrl = uried.toString();
+                            // Lưu đường dẫn ảnh vào cơ sở dữ liệu (ví dụ: Realtime Database)
+                            saveImageUrlToDatabase(imageUrl);
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        // Xử lý khi có lỗi xảy ra trong quá trình tải lên
+                    });
+        }
+
+    }
+
+    private void saveImageUrlToDatabase(String imageUrl) {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference userRef = databaseReference.child(userId).child("hoso");
+
+            // Cập nhật dữ liệu người dùng trong Firebase Realtime Database
+            userRef.child("url").setValue(imageUrl);
+        }
+    }
+    private void loadImageFromFirebaseStorage(String imageUrl) {
+        // Sử dụng thư viện Picasso để tải ảnh và hiển thị nó trong ImageView
+        Picasso.get()
+                .load(imageUrl)
+                .placeholder(R.drawable.admin) // Đặt ảnh giả mạo nếu không tải được ảnh từ Firebase
+                .error(R.drawable.loi) // Đặt ảnh khi có lỗi xảy ra trong quá trình tải ảnh
+                .into(imageView);
+    }
+
     public void AnhXa(){
         btnUpdate=findViewById(R.id.btnUpdate);
         btnUpdate2=findViewById(R.id.btnUpdate2);
@@ -85,6 +169,8 @@ public class User extends AppCompatActivity {
         editTexts.add(edtWeight);
         editTexts.add(edtNhiptim);
         editTexts.add(edtHuyetap);
+
+        imageView = findViewById(R.id.imageView);
     }
     private void displayUserData() {
         FirebaseUser user = mAuth.getCurrentUser();
@@ -97,6 +183,8 @@ public class User extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         // Lấy dữ liệu từ Firebase và hiển thị lên các EditText tương ứng
+                        String imageUrl =dataSnapshot.child("url").getValue(String.class); // Lấy đường dẫn ảnh từ cơ sở dữ liệu (ví dụ: Realtime Database)
+                        loadImageFromFirebaseStorage(imageUrl);
                         edtName.setText(dataSnapshot.child("name").getValue(String.class));
                         edtDateOfBirth.setText(dataSnapshot.child("date").getValue(String.class));
                         edtGender.setText(dataSnapshot.child("gender").getValue(String.class));
@@ -149,7 +237,16 @@ public class User extends AppCompatActivity {
             userRef.child("hight").setValue(Float.parseFloat(String.valueOf(edtHight.getText()).replaceAll("[^0-9.]", "")));
             userRef.child("weight").setValue(Float.parseFloat(String.valueOf(edtWeight.getText()).replaceAll("[^0-9.]", "")));
             userRef.child("nhiptim").setValue(Float.parseFloat(String.valueOf(edtNhiptim.getText()).replaceAll("[^0-9.]", "")));
-            userRef.child("huyetap").setValue(edtHuyetap.getText().toString().replace(".mmhg", ""));
+            userRef.child("huyetap").setValue(edtHuyetap.getText().toString().replaceAll("[^0-9/]", ""));
         }
+    }
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+    }
+    public void onBackPressed() {
+        // Khi nút "Back" được nhấn, gọi finish() để đóng Activity
+        super.onBackPressed();
+        finish();
     }
 }
