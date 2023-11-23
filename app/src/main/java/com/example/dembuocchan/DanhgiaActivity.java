@@ -88,6 +88,28 @@ public class DanhgiaActivity extends AppCompatActivity {
         });
         displayCommentData();
     }
+    public interface OnUrlReceivedListener {
+        void onUrlReceived(String url);
+    }
+    private void geturl(String id, OnUrlReceivedListener listener){
+        DatabaseReference userRef = dbRinfor.child(id).child("hoso");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String url = dataSnapshot.child("url").getValue(String.class);
+                    listener.onUrlReceived(url);
+                } else {
+                    Toast.makeText(DanhgiaActivity.this, "Hay cap nhat ho so cua ban", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(DanhgiaActivity.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void addComment(){
         int sosao=(int)rtbStar.getRating();
         if(sosao<1){
@@ -113,7 +135,6 @@ public class DanhgiaActivity extends AppCompatActivity {
     private void displayCommentData() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            String userId = user.getUid();
             DatabaseReference userRef = databaseReference.child("chuongtrinh1").child("comment");
             Query query = userRef.orderByChild("datetime");
             // Lắng nghe sự thay đổi trong dữ liệu người dùng
@@ -128,7 +149,15 @@ public class DanhgiaActivity extends AppCompatActivity {
                             View userReviewLayout = LayoutInflater.from(DanhgiaActivity.this).inflate(R.layout.danhgiaform, null);
                             //String imageUrl =dataSnapshot.child("url").getValue(String.class);
                             ImageView imageView = userReviewLayout.findViewById(R.id.daidien);
-                            loadImageFromFirebaseStorage("https://firebasestorage.googleapis.com/v0/b/dembuocchan.appspot.com/o/profile_images%2FPxgg5Ci9BLTlwVGxuOZN7YrEhfu2.jpg?alt=media&token=9c1349bd-e542-475d-a941-138a61d43646",imageView);
+                            geturl(parentName, new OnUrlReceivedListener() {
+                                @Override
+                                public void onUrlReceived(String url) {
+                                    // Thực hiện công việc với giá trị url ở đây
+                                    // Ví dụ: Hiển thị hình ảnh
+                                    loadImageFromFirebaseStorage(url,imageView);
+                                }
+                            });
+                            //loadImageFromFirebaseStorage("https://firebasestorage.googleapis.com/v0/b/dembuocchan.appspot.com/o/profile_images%2FPxgg5Ci9BLTlwVGxuOZN7YrEhfu2.jpg?alt=media&token=9c1349bd-e542-475d-a941-138a61d43646",imageView);
                             TextView userNameTextView = userReviewLayout.findViewById(R.id.textView19);
                             userNameTextView.setText(commentSnapshot.child("name").getValue(String.class)); // Thay tên người dùng tương ứng
                             RatingBar userRating = userReviewLayout.findViewById(R.id.ratingBar3);
@@ -185,11 +214,17 @@ public class DanhgiaActivity extends AppCompatActivity {
     }
     private void loadImageFromFirebaseStorage(String imageUrl,ImageView imageView) {
         // Sử dụng thư viện Picasso để tải ảnh và hiển thị nó trong ImageView
-        Picasso.get()
-                .load(imageUrl)
-                .placeholder(R.drawable.admin) // Đặt ảnh giả mạo nếu không tải được ảnh từ Firebase
-                .error(R.drawable.loi) // Đặt ảnh khi có lỗi xảy ra trong quá trình tải ảnh
-                .into(imageView);
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            // Sử dụng thư viện Picasso để tải ảnh và hiển thị nó trong ImageView
+            Picasso.get()
+                    .load(imageUrl)
+                    .placeholder(R.drawable.admin) // Đặt ảnh giả mạo nếu không tải được ảnh từ Firebase
+                    .error(R.drawable.loi) // Đặt ảnh khi có lỗi xảy ra trong quá trình tải ảnh
+                    .into(imageView);
+        } else {
+            // Nếu imageUrl không có giá trị, sử dụng ảnh "loi"
+            imageView.setImageResource(R.drawable.loi);
+        }
     }
 
 }

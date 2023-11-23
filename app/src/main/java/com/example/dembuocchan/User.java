@@ -136,11 +136,17 @@ public class User extends AppCompatActivity {
     }
     private void loadImageFromFirebaseStorage(String imageUrl) {
         // Sử dụng thư viện Picasso để tải ảnh và hiển thị nó trong ImageView
-        Picasso.get()
-                .load(imageUrl)
-                .placeholder(R.drawable.admin) // Đặt ảnh giả mạo nếu không tải được ảnh từ Firebase
-                .error(R.drawable.loi) // Đặt ảnh khi có lỗi xảy ra trong quá trình tải ảnh
-                .into(imageView);
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            // Sử dụng thư viện Picasso để tải ảnh và hiển thị nó trong ImageView
+            Picasso.get()
+                    .load(imageUrl)
+                    .placeholder(R.drawable.admin) // Đặt ảnh giả mạo nếu không tải được ảnh từ Firebase
+                    .error(R.drawable.loi) // Đặt ảnh khi có lỗi xảy ra trong quá trình tải ảnh
+                    .into(imageView);
+        } else {
+            // Nếu imageUrl không có giá trị, sử dụng ảnh "loi"
+            imageView.setImageResource(R.drawable.loi);
+        }
     }
 
     public void AnhXa(){
