@@ -102,6 +102,7 @@ public class KeHoachFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable("object_Kehoach",kehoach);
         intent.putExtras(bundle);
+        intent.putExtra("idchuongtrinh",kehoach.getId());
         startActivity(intent);
     }
 }

@@ -42,7 +42,7 @@ public class ChiTietKeHoachActivity extends AppCompatActivity {
     private EditText edtNgayTapLuyen;
     private CharSequence[] weekdays = {"Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"};
     private boolean[] checkedWeekdays;
-    String idchuongtrinh = "chuongtrinh2";
+    private String idchuongtrinh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,7 @@ public class ChiTietKeHoachActivity extends AppCompatActivity {
             return;
         }
         KeHoach keHoach = (KeHoach) bundle.get("object_Kehoach");
+        idchuongtrinh= String.valueOf(keHoach.getId());
         imageView.setImageResource(keHoach.getResourceId());
         ngaybatdau.setText(keHoach.getTime());
         level.setText(keHoach.getLevel());
@@ -140,7 +141,7 @@ public class ChiTietKeHoachActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent ints = new Intent(ChiTietKeHoachActivity.this, DanhgiaActivity.class);
-                ints.putExtra("idchuongtrinh",idchuongtrinh);
+                ints.putExtra("idchuongtrinh","chuongtrinh"+idchuongtrinh);
                 startActivity(ints);
             }
         });
