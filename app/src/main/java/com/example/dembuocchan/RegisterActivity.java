@@ -1,5 +1,4 @@
 package com.example.dembuocchan;
-import static android.content.ContentValues.TAG;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

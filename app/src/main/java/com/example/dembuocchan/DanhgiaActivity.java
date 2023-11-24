@@ -1,7 +1,7 @@
 package com.example.dembuocchan;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +12,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Constraints;
 
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +25,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 public class DanhgiaActivity extends AppCompatActivity {
     Button send;
     EditText edtDanhgia;
@@ -42,6 +38,8 @@ public class DanhgiaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        String idchuongtrinh = intent.getStringExtra("idchuongtrinh");
         setContentView(R.layout.activity_danhgia);
         send=findViewById(R.id.buttonSend);
         edtDanhgia=findViewById(R.id.editTextDanhgia);
@@ -59,6 +57,11 @@ public class DanhgiaActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String check=edtDanhgia.getText().toString().toLowerCase().trim();
+                Toast.makeText(DanhgiaActivity.this, check, Toast.LENGTH_SHORT).show();
+                if (ContentValidator.kiemTraNoiDungKhongHopLe(check)) {
+                    Toast.makeText(DanhgiaActivity.this, "Nội dung không hợp lệ", Toast.LENGTH_SHORT).show(); return;
+                }
                 FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
                     String userId = user.getUid();
@@ -70,7 +73,7 @@ public class DanhgiaActivity extends AppCompatActivity {
                             if (dataSnapshot.exists()) {
                                 // Lấy dữ liệu từ Firebase
                                 username=dataSnapshot.child("name").getValue(String.class);
-                                addComment();
+                                addComment(idchuongtrinh);
 
                             }else {
                                 Toast.makeText(DanhgiaActivity.this, "Hay cap nhat ho so cua ban", Toast.LENGTH_SHORT).show();
@@ -86,8 +89,9 @@ public class DanhgiaActivity extends AppCompatActivity {
 
             }
         });
-        displayCommentData();
+        displayCommentData(idchuongtrinh);
     }
+
     public interface OnUrlReceivedListener {
         void onUrlReceived(String url);
     }
@@ -103,19 +107,19 @@ public class DanhgiaActivity extends AppCompatActivity {
                     Toast.makeText(DanhgiaActivity.this, "Hay cap nhat ho so cua ban", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(DanhgiaActivity.this, "Lỗi đọc dữ liệu", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void addComment(){
+    private void addComment(String chuongtrinh){
         int sosao=(int)rtbStar.getRating();
         if(sosao<1){
             Toast.makeText(DanhgiaActivity.this, "Vui lòng nhập số sao"+(int)rtbStar.getRating(),Toast.LENGTH_SHORT).show();
             return;
         }
+
         LinearLayout danhgia=findViewById(R.id.xemdanhgia);
         View userReviewLayout = LayoutInflater.from(DanhgiaActivity.this).inflate(R.layout.danhgiaform, null);
         TextView userNameTextView = userReviewLayout.findViewById(R.id.textView19);
@@ -128,14 +132,15 @@ public class DanhgiaActivity extends AppCompatActivity {
         TextView dateTextView = userReviewLayout.findViewById(R.id.textView20);
         dateTextView.setText("Ngày: " + getCurrentDate()); // Sử dụng phương thức để lấy ngày tháng hiện tại
         danhgia.addView(userReviewLayout, 0);
-        createComment();
+        createComment(chuongtrinh);
         edtDanhgia.setText("");
         rtbStar.setRating(0);
     }
-    private void displayCommentData() {
+
+    private void displayCommentData(String chuongtrinh) {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            DatabaseReference userRef = databaseReference.child("chuongtrinh1").child("comment");
+            DatabaseReference userRef = databaseReference.child(chuongtrinh).child("comment");
             Query query = userRef.orderByChild("datetime");
             // Lắng nghe sự thay đổi trong dữ liệu người dùng
             query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -182,11 +187,11 @@ public class DanhgiaActivity extends AppCompatActivity {
             });
         }
     }
-    private void createComment() {
+    private void createComment(String chuongtrinh) {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            DatabaseReference userRef = databaseReference.child("chuongtrinh1").child("comment").child(userId);
+            DatabaseReference userRef = databaseReference.child(chuongtrinh).child("comment").child(userId);
             int sosao=(int)rtbStar.getRating();
             // Cập nhật dữ liệu người dùng trong Firebase Realtime Database
             userRef.child("name").setValue(username);
@@ -226,5 +231,4 @@ public class DanhgiaActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.loi);
         }
     }
-
 }
