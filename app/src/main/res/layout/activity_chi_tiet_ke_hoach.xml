@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backgroundcolor"
+    tools:context=".ChiTietKeHoachActivity">
+
+    <ImageView
+        android:id="@+id/image_planner"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/batdau"
+        android:layout_marginTop="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ngày bắt đầu"
+            android:textSize="16dp"
+            android:typeface="serif"/>
+
+        <EditText
+            android:id="@+id/ed_ngaybatdau"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="end"
+            android:inputType="none"
+            android:text="23 tháng 10,2023"
+            android:textSize="13dp"
+            android:typeface="serif"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thời gian thông báo"
+            android:textSize="16dp"
+            android:typeface="serif"/>
+
+        <EditText
+            android:id="@+id/ed_thoigianthongbao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="end"
+            android:inputType="none"
+            android:text="18:00"
+            android:textSize="13dp"
+            android:typeface="serif"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ngày tập luyện ưa thích"
+            android:textSize="16dp"
+            android:typeface="serif" />
+        <EditText
+            android:id="@+id/edtNgayTapLuyen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="false"
+            android:gravity="end"
+            android:inputType="none"
+            android:textSize="13dp"
+            android:typeface="serif"
+            android:text="Thứ 3,5,7"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Bắt đầu đi bộ"
+            android:textSize="16dp"
+            android:typeface="serif"/>
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="Người mới bắt đầu"
+            android:textSize="13dp"
+            android:typeface="serif"
+            android:textStyle="bold"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Trước khi bạn bắt đầu, chúng tôi khuyên bạn nên tham khảo lời khuyên từ bác sĩ, tuân theo các kế hoạch luyện tập này là rủi ro của rieng bạn"
+        android:textSize="13dp"
+        android:typeface="serif"/>
+    <TextView
+        android:id="@+id/tvRateApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đánh giá ứng dụng>"
+        android:textColor="#FFFFFF" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_hoanthanh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:text="Hoàn thành"
+                android:textSize="16dp"
+                android:background="@drawable/rectangle_5"
+                android:textColor="#FFFFFF"
+                android:textColorLink="#FBF6F6"/>
+
+            <Button
+                android:id="@+id/btn_quaylai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Quay lại"
+                android:textSize="16dp"
+                android:background="@drawable/rectangle_5"
+                android:textColor="#FFFFFF"
+                android:textColorLink="#FBF6F6"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
