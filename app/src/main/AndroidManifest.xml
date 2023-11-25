@@ -37,14 +37,13 @@
         </activity>
         <activity android:name=".MainActivity_test"
             android:exported="false">
-
         </activity>
         <activity
             android:name=".DoiPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".GioiThieuActivity"
             android:exported="false" />

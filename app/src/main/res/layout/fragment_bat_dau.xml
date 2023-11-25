@@ -6,9 +6,110 @@
     tools:context=".fragments.BatDauFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:padding="16dp"
+        tools:context=".MainActivity">
+
+
+        <TextView
+            android:id="@+id/stepTargetTextViewday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Step Conter"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:padding="20dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Step goabl : 5000 "
+            android:id="@+id/stepTargetTextView"
+            android:layout_gravity="center"
+            android:textSize="20sp"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="227dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/cricualer"
+            android:padding="10dp"
+
+
+
+            android:progressDrawable="@drawable/custom_progress" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="Steps: 0"
+                android:id="@+id/stepCountTextView"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="Distance: 0"
+                android:paddingLeft="10dp"
+                android:id="@+id/distaceTextView"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:text="Time: 0"
+                android:id="@+id/timeTextView"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/pauseButton"
+            android:layout_width="232dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:onClick="onPausedButtonClicked"
+            android:padding="10dp"
+            android:text="Start"
+            android:background="#11B3CB"
+
+            />
+
+    </LinearLayout>
 
 </FrameLayout>
