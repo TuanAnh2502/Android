@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dembuocchan.KeHoach.KeHoach;
 import com.example.dembuocchan.UserPlan.UserPlan;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -43,13 +44,13 @@ public class ChiTietKeHoachActivity extends AppCompatActivity {
     private CharSequence[] weekdays = {"Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"};
     private boolean[] checkedWeekdays;
     private String idchuongtrinh;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_ke_hoach);
-
-
+        mAuth = FirebaseAuth.getInstance();
 
         imageView = findViewById(R.id.image_planner);
         ngaybatdau = findViewById(R.id.ed_ngaybatdau);
@@ -78,14 +79,14 @@ public class ChiTietKeHoachActivity extends AppCompatActivity {
         level.setText(keHoach.getLevel());
 
         // Lấy dữ liệu email truyền vào
-        String email = sharedPreferences.getString("EMAIL", "");
+        String email= mAuth.getCurrentUser().getEmail();
         int atIndex = email.indexOf("@");
         if (atIndex != -1) {
             emailUser = email.substring(0, atIndex);
         } else {
             return;
         }
-
+        Toast.makeText(ChiTietKeHoachActivity.this,"email: "+emailUser, Toast.LENGTH_SHORT).show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         plansRef = database.getReference("user_plans").child(emailUser);
     }
@@ -197,7 +198,7 @@ public class ChiTietKeHoachActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    private void setNotification(int hour, int minute) {
+    /*private void setNotification(int hour, int minute) {
         // Tạo một đối tượng Calendar và đặt thời gian thông báo
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -215,7 +216,7 @@ public class ChiTietKeHoachActivity extends AppCompatActivity {
         // Lấy đối tượng AlarmManager và đặt thông báo
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-    }
+    }*/
 
     private void saveNotificationTime(int hourOfDay, int minute) {
     }

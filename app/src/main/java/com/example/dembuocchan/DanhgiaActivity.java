@@ -162,7 +162,6 @@ public class DanhgiaActivity extends AppCompatActivity {
                                     loadImageFromFirebaseStorage(url,imageView);
                                 }
                             });
-                            //loadImageFromFirebaseStorage("https://firebasestorage.googleapis.com/v0/b/dembuocchan.appspot.com/o/profile_images%2FPxgg5Ci9BLTlwVGxuOZN7YrEhfu2.jpg?alt=media&token=9c1349bd-e542-475d-a941-138a61d43646",imageView);
                             TextView userNameTextView = userReviewLayout.findViewById(R.id.textView19);
                             userNameTextView.setText(commentSnapshot.child("name").getValue(String.class)); // Thay tên người dùng tương ứng
                             RatingBar userRating = userReviewLayout.findViewById(R.id.ratingBar3);
